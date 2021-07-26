@@ -6,11 +6,16 @@ pipeline {
         rtDocker = Artifactory.docker server: server
         buildInfo = Artifactory.newBuildInfo()
         ARTIFACTORY_DOCKER_REGISTRY='nikethdock.jfrog.io/docker-jenkins-docker-local'
-        buildInfo.env.capture = true
     }
-    
 
     stages {
+
+        stage('Config Build Info') {
+            steps {
+                buildInfo.env.capture = true
+            }
+        }
+
         stage ('Clone') {
             steps {
                 git branch: 'main', url: "https://github.com/srikanthkube/python_class.git"
