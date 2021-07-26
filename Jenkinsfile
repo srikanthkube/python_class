@@ -7,20 +7,20 @@ node {
     }
     stage ('Artifactory configuration') {
         rtServer (
-            id: "ARTIFACTORY_SERVER",
-            url: "https://nikethdock.jfrog.io",
-            credentialsId: artifactory
+            id: 'ARTIFACTORY_SERVER',
+            url: "https://nikethdock.jfrog.io/artifactory",
+            credentialsId: "artifactory"
         )
     }
     stage ('Build docker image') {
-        docker.build(ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:latest:${env.BUILD_ID}", ".")
+        docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/hello-dock-jen:latest:${env.BUILD_ID}', '.')
     }
     stage ('Push image to Artifactory') {
-        buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", "docker-jenkins-docker-local"
+        buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + '/hello-dock-jen:${env.BUILD_ID}', 'docker-jenkins-docker-local'
     }
     stage ('Publish build info') {
         rtPublishBuildInfo (
-            serverId: "ARTIFACTORY_SERVER"
+            serverId: 'ARTIFACTORY_SERVER'
         )
     }
 }
