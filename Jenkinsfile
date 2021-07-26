@@ -60,12 +60,12 @@ pipeline {
             }
         }
 
-        stage ('Publish build info') {
-            steps {
-                rtPublishBuildInfo (
-                serverId: "ARTIFACTORY_SERVER"
-                )
-            }
-        }
+        // stage ('Publish build info') {
+        //     steps {
+        //         rtPublishBuildInfo (
+        //         serverId: "ARTIFACTORY_SERVER"
+        //         )
+        //     }
+        // }
     }
 }
