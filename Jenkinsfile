@@ -1,5 +1,6 @@
 node {
     def server = Artifactory.server('nikethdock.jfrog.io')
+    def rtDocker = Artifactory.docker server: server
     def buildInfo = Artifactory.newBuildInfo()
     def ARTIFACTORY_DOCKER_REGISTRY='nikethdock.jfrog.io/docker-jenkins-docker-local'
     buildInfo.env.capture = true
