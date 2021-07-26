@@ -15,7 +15,7 @@ node {
         )
     }
     stage ('Build docker image') {
-        docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/hello-dock-jen:latest:${env.BUILD_ID}', '.')
+        docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/hello-dock-jen:${env.BUILD_ID}', '.')
     }
     stage ('Push image to Artifactory') {
         buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + '/hello-dock-jen:${env.BUILD_ID}', 'docker-jenkins-docker-local'
