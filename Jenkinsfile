@@ -2,6 +2,8 @@ node {
     def server = Artifactory.server('nikethdock.jfrog.io')
     def buildInfo = Artifactory.newBuildInfo()
     def ARTIFACTORY_DOCKER_REGISTRY='nikethdock.jfrog.io/docker-jenkins-docker-local'
+    buildInfo.env.capture = true
+
     stage ('Clone') {
         git branch: 'main', url: "https://github.com/srikanthkube/python_class.git"
     }
@@ -9,7 +11,7 @@ node {
         rtServer (
             id: 'ARTIFACTORY_SERVER',
             url: "https://nikethdock.jfrog.io/artifactory",
-            credentialsId: "artifactory"
+            credentialsId: 'artifactory'
         )
     }
     stage ('Build docker image') {
