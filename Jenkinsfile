@@ -31,9 +31,6 @@ pipeline {
                 rtBuildInfo (
                     captureEnv: true
                 )
-                rtPublishBuildInfo (
-                    serverId: env.ARTIFACTORY_SERVER_ID
-                )
             }
         }
 
