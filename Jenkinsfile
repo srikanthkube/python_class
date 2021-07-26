@@ -19,7 +19,7 @@ pipeline {
         stage ('Artifactory configuration') {
             steps {
                 rtServer (
-                    id: 'ARTIFACTORY_SERVER',
+                    id: "ARTIFACTORY_SERVER",
                     url: "https://nikethdock.jfrog.io/artifactory",
                     credentialsId: 'artifactory'
                 )
@@ -66,7 +66,7 @@ pipeline {
         stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                serverId: 'ARTIFACTORY_SERVER'
+                serverId: "ARTIFACTORY_SERVER"
                 )
             }
         }
