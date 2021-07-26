@@ -1,13 +1,14 @@
 pipeline {
-    agent {
-        label 'docker-artifactory-test'
-    }
+    agent any
 
-    def server = Artifactory.server('nikethdock.jfrog.io')
-    def rtDocker = Artifactory.docker server: server
-    def buildInfo = Artifactory.newBuildInfo()
-    def ARTIFACTORY_DOCKER_REGISTRY='nikethdock.jfrog.io/docker-jenkins-docker-local'
-    buildInfo.env.capture = true
+    environment {
+        server = Artifactory.server('nikethdock.jfrog.io')
+        rtDocker = Artifactory.docker server: server
+        buildInfo = Artifactory.newBuildInfo()
+        ARTIFACTORY_DOCKER_REGISTRY='nikethdock.jfrog.io/docker-jenkins-docker-local'
+        buildInfo.env.capture = true
+    }
+    
 
     stages {
         stage ('Clone') {
