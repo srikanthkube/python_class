@@ -7,7 +7,7 @@ node {
     }
     stage('Docker build and push') {
         docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-            def app = docker.build("srikanthkube/python_class:${commit_id}", '.').push()
+            def app = docker.build("nikethdock/python-jenkins-docker:${commit_id}", '.').push()
         }
     }
 }
