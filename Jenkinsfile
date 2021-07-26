@@ -36,10 +36,8 @@ pipeline {
 
         stage ('Build docker image') {
             steps {
-                script {
-                    def dockerfile = 'Dockerfile'
-                    docker.build(ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", ".")
-                }
+                // def dockerfile = 'Dockerfile'
+                docker.build(ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", ".")
             }
         }
 
@@ -60,12 +58,12 @@ pipeline {
             }
         }
 
-        // stage ('Publish build info') {
-        //     steps {
-        //         rtPublishBuildInfo (
-        //         serverId: "ARTIFACTORY_SERVER"
-        //         )
-        //     }
-        // }
+        stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                serverId: "ARTIFACTORY_SERVER"
+                )
+            }
+        }
     }
 }
