@@ -49,7 +49,7 @@ pipeline {
         stage ('Push image to Artifactory') {
             steps {
                 // buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", "docker-jenkins-docker-local"
-                rtDockerPush {
+                rtDockerPush (
                     serverId: "ARTIFACTORY_SERVER",
                     image: ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}",
                     // Host:
@@ -59,7 +59,7 @@ pipeline {
                     targetRepo: 'docker-jenkins-docker-local', // where to copy to (from docker-virtual)
                     // Attach custom properties to the published artifacts:
                     properties: 'project-name=docker1;status=stable'
-                }
+                )
             }
         }
 
