@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'dockeragent'
+    }
 
     environment {
         // server = Artifactory.server('nikethdock.jfrog.io')
@@ -35,9 +37,12 @@ pipeline {
         }
 
         stage ('Build docker image') {
+            agent {
+                label 'master'
+            }
             steps {
                 script {
-                    def dockerfile = 'Dockerfile'
+                    // def dockerfile = 'Dockerfile'
                     docker.build(ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", ".")
                 }
             }
