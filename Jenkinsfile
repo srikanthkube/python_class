@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'slave'
+        dockerfile true
     }
 
     environment {
