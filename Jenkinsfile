@@ -49,6 +49,9 @@ pipeline {
         }
 
         stage ('Push image to Artifactory') {
+            agent {
+                label 'master'
+            }
             steps {
                 // buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", "docker-jenkins-docker-local"
                 rtDockerPush (
@@ -66,6 +69,9 @@ pipeline {
         }
 
         stage ('Publish build info') {
+            agent {
+                label 'master'
+            }
             steps {
                 rtPublishBuildInfo (
                     serverId: "ARTIFACTORY_SERVER"
