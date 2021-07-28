@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'docker'
+        label 'slave'
     }
 
     environment {
@@ -19,9 +19,6 @@ pipeline {
         }
 
         stage ('Artifactory configuration') {
-            agent {
-                label 'docker'
-            }
             steps {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
@@ -32,9 +29,6 @@ pipeline {
         }
 
         stage('Config Build Info') {
-            agent {
-                label 'docker'
-            }
             steps {
                 rtBuildInfo (
                     captureEnv: true
@@ -43,11 +37,6 @@ pipeline {
         }
 
         stage ('Build docker image') {
-            agent {
-                docker {
-                    label 'docker'
-                    image 'docker'
-                }
             }
             steps {
                 script {
@@ -58,9 +47,6 @@ pipeline {
         }
 
         stage ('Push image to Artifactory') {
-            agent {
-                label 'docker'
-            }
             steps {
                 // buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", "docker-jenkins-docker-local"
                 rtDockerPush (
@@ -78,9 +64,6 @@ pipeline {
         }
 
         stage ('Publish build info') {
-            agent {
-                label 'docker'
-            }
             steps {
                 rtPublishBuildInfo (
                     serverId: "ARTIFACTORY_SERVER"
