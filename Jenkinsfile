@@ -37,7 +37,6 @@ pipeline {
         }
 
         stage ('Build docker image') {
-            }
             steps {
                 script {
                     // def dockerfile = 'Dockerfile'
