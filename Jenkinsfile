@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'dockeragent'
+    }
 
     environment {
         // server = Artifactory.server('nikethdock.jfrog.io')
