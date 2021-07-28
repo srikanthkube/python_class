@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'dockeragent'
-    }
+    agent none
 
     environment {
         // server = Artifactory.server('nikethdock.jfrog.io')
@@ -19,6 +17,9 @@ pipeline {
         }
 
         stage ('Artifactory configuration') {
+            agent {
+                label 'dockeragent'
+            }
             steps {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
@@ -29,6 +30,9 @@ pipeline {
         }
 
         stage('Config Build Info') {
+            agent {
+                label 'dockeragent'
+            }
             steps {
                 rtBuildInfo (
                     captureEnv: true
@@ -37,6 +41,11 @@ pipeline {
         }
 
         stage ('Build docker image') {
+            agent {
+                docker {
+                    image 'docker'
+                }
+            }
             steps {
                 script {
                     // def dockerfile = 'Dockerfile'
@@ -46,6 +55,9 @@ pipeline {
         }
 
         stage ('Push image to Artifactory') {
+            agent {
+                label 'dockeragent'
+            }
             steps {
                 // buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + "/hello-dock-jen:${env.BUILD_ID}", "docker-jenkins-docker-local"
                 rtDockerPush (
@@ -63,6 +75,9 @@ pipeline {
         }
 
         stage ('Publish build info') {
+            agent {
+                label 'dockeragent'
+            }
             steps {
                 rtPublishBuildInfo (
                     serverId: "ARTIFACTORY_SERVER"
