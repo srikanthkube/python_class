@@ -37,6 +37,9 @@ pipeline {
         }
 
         stage ('Build docker image') {
+            agent {
+                label 'master'
+            }
             steps {
                 script {
                     // def dockerfile = 'Dockerfile'
